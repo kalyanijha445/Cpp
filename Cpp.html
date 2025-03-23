@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cplusplus Reborn</title>
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      position: fixed; top: 0; width: 100%; z-index: 999;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #00fff0;
+    }
+
+    nav ul {
+      display: flex; gap: 1.5rem; list-style: none;
+    }
+
+    nav ul li a {
+      font-weight: 500; transition: 0.3s;
+    }
+
+    nav ul li a:hover { color: #00fff0; }
+
+    .toggle-btn {
+      background: #00fff0; color: #000;
+      border: none; padding: 0.6rem 1rem; border-radius: 20px;
+      cursor: pointer; transition: 0.3s;
+    }
+
+    .toggle-btn:hover {
+      box-shadow: 0 0 15px #00fff0;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1f1f1f 100%);
+      text-align: center;
+      padding: 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem; color: #00fff0; margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: #ccc; font-size: 1.2rem; margin-bottom: 2rem;
+    }
+
+    .hero button {
+      background: #00fff0; color: #000;
+      border: none; padding: 0.8rem 2rem; border-radius: 50px;
+      font-size: 1.1rem; cursor: pointer; transition: 0.3s;
+    }
+
+    .hero button:hover {
+      background: #00ccff; box-shadow: 0 0 25px #00fff0;
+    }
+
+    /* Glowing Circles */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #00fff0 0%, transparent 60%);
+      animation: float 10s infinite ease-in-out;
+      opacity: 0.6;
+    }
+
+    .circle1 { width: 300px; height: 300px; top: 10%; left: -100px; }
+    .circle2 { width: 500px; height: 500px; bottom: -200px; right: -200px; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      font-size: 2.5rem; color: #00fff0; margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+      box-shadow: 0 0 20px rgba(0,255,255,0.1);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 40px rgba(0,255,255,0.3);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #00fff0;
+    }
+
+    .card p {
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    /* Code Editor */
+    .editor {
+      background: #1a1a1a;
+      color: #00ff88;
+      padding: 1rem;
+      border-radius: 10px;
+      min-height: 250px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      box-shadow: 0 0 20px rgba(0,255,200,0.2);
+      transition: 0.3s;
+    }
+
+    .editor:focus {
+      outline: none;
+      box-shadow: 0 0 40px rgba(0,255,200,0.4);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #111;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Light mode */
+    body.light-mode {
+      background: #f9f9f9;
+      color: #000;
+    }
+
+    body.light-mode header,
+    body.light-mode footer {
+      background: rgba(255,255,255,0.8);
+      color: #333;
+    }
+
+    body.light-mode .logo,
+    body.light-mode section h2 {
+      color: #0077ff;
+    }
+
+    body.light-mode .card {
+      background: rgba(0,0,0,0.05);
+      color: #333;
+    }
+
+    body.light-mode .hero {
+      background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+    }
+
+    body.light-mode .hero p {
+      color: #555;
+    }
+
+    body.light-mode .editor {
+      background: #e0e0e0;
+      color: #005522;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    body.light-mode .editor:focus {
+      box-shadow: 0 0 40px rgba(0,0,0,0.2);
+    }
+
+  </style>
+</head>
+
+<body>
+<!-- Hero Section (Updated and Better!) -->
+<section class="hero-new">
+  <canvas id="particle-canvas"></canvas>
+  
+  <div class="hero-content">
+    <h1 class="animated-text">Welcome to <span>Cplusplus Reborn</span></h1>
+    <p>Level up your C++ skills with interactive tutorials and live coding.</p>
+    <button class="cta-button" onclick="alert('Let’s Start Learning!')">Start Learning</button>
+  </div>
+</section>
+
+<style>
+  .hero-new {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+  }
+
+  #particle-canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-content {
+    z-index: 1;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00fff0;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .hero-content h1 span {
+    color: #ffffff;
+    background: linear-gradient(90deg, #00fff0, #00ccff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: colorShift 5s infinite alternate;
+  }
+
+  @keyframes colorShift {
+    from { filter: hue-rotate(0deg); }
+    to { filter: hue-rotate(360deg); }
+  }
+
+  .hero-content p {
+    color: #ddd;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-button {
+    background-color: #00fff0;
+    color: #000;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 20px #00fff0;
+  }
+
+  .cta-button:hover {
+    transform: scale(1.1);
+    background-color: #00ccff;
+    box-shadow: 0 0 40px #00fff0, 0 0 80px #00ccff;
+  }
+
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.2rem;
+    }
+
+    .cta-button {
+      font-size: 1rem;
+      padding: 0.6rem 1.5rem;
+    }
+  }
+</style> 
+<!-- Navbar -->
+  <header>
+    <div class="logo">Cplusplus<span>Reborn</span></div>
+    <nav>
+      <ul>
+        <li><a href="#learn">Learn</a></li>
+        <li><a href="#code">Code</a></li>
+        <li><a href="#community">Community</a></li>
+        <li><button class="toggle-btn" onclick="toggleMode()">Light/Dark</button></li>
+      </ul>
+    </nav>
+  </header>
+
+<script>
+  // Particle Canvas Effect
+  const canvas = document.getElementById("particle-canvas");
+  const ctx = canvas.getContext("2d");
+
+  let particlesArray;
+
+  const mouse = {
+    x: null,
+    y: null,
+    radius: 100
+  };
+
+  window.addEventListener("mousemove", function(event){
+    mouse.x = event.x;
+    mouse.y = event.y;
+  });
+
+  class Particle {
+    constructor(x, y, directionX, directionY, size, color) {
+      this.x = x;
+      this.y = y;
+      this.directionX = directionX;
+      this.directionY = directionY;
+      this.size = size;
+      this.color = color;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+      ctx.fillStyle = '#00fff0';
+      ctx.fill();
+    }
+
+    update() {
+      if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+      if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+
+      let dx = mouse.x - this.x;
+      let dy = mouse.y - this.y;
+      let distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < mouse.radius + this.size) {
+        if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+          this.x += 10;
+        }
+        if (mouse.x > this.x && this.x > this.size * 10) {
+          this.x -= 10;
+        }
+        if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+          this.y += 10;
+        }
+        if (mouse.y > this.y && this.y > this.size * 10) {
+          this.y -= 10;
+        }
+      }
+
+      this.x += this.directionX;
+      this.y += this.directionY;
+      this.draw();
+    }
+  }
+
+  function init() {
+    particlesArray = [];
+    let numberOfParticles = (canvas.height * canvas.width) / 9000;
+    for (let i = 0; i < numberOfParticles; i++) {
+      let size = (Math.random() * 5) + 1;
+      let x = (Math.random() * (innerWidth - size * 2));
+      let y = (Math.random() * (innerHeight - size * 2));
+      let directionX = (Math.random() * 5) - 2.5;
+      let directionY = (Math.random() * 5) - 2.5;
+      let color = '#00fff0';
+
+      particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+    }
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+    for (let i = 0; i < particlesArray.length; i++) {
+      particlesArray[i].update();
+    }
+  }
+
+  window.addEventListener('resize',
+    function() {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      mouse.radius = ((canvas.height/80) * (canvas.width/80));
+      init();
+    }
+  );
+
+  window.addEventListener("mouseout",
+    function() {
+      mouse.x = undefined;
+      mouse.y = undefined;
+    }
+  );
+
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  init();
+  animate();
+</script>
+ 
+
+
+  <!-- Learn Section -->
+  <section id="learn">
+    <h2>Learn</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Tutorials</h3>
+        <p>Easy-to-follow tutorials from beginner to advanced levels. Step by step guidance at your pace.</p>
+      </div>
+      <div class="card">
+        <h3>References</h3>
+        <p>Comprehensive and up-to-date documentation of C++ libraries, functions, and best practices.</p>
+      </div>
+      <div class="card">
+        <h3>Articles</h3>
+        <p>Dive into expert-written insights and strategies for mastering modern C++ programming.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Section -->
+  <section id="code">
+    <h2>Live Code Editor</h2>
+    <div class="editor" contenteditable="true">// Write your C++ code here...
+#include<iostream>
+using namespace std;
+
+int main() {
+  cout << "Hello World!";
+  return 0;
+}</div>
+  </section>
+
+  <!-- Community Section -->
+  <section id="community">
+    <h2>Community</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Forum</h3>
+        <p>Ask questions, answer others, and be part of an active, supportive C++ community.</p>
+      </div>
+      <div class="card">
+        <h3>AI Assistant</h3>
+        <p>Coming soon: Chat with our AI-powered coding assistant for instant guidance and support!</p>
+      </div>
+      <div class="card">
+        <h3>Events</h3>
+        <p>Join coding contests, webinars, and exclusive events to enhance your C++ skills and network.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Cplusplus Reborn | Designed by Kalyani | Privacy Policy
+  </footer>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle("light-mode");
+    }
+  </script>
+
+</body>
+</html>
